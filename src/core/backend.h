@@ -36,7 +36,6 @@
 namespace nvidia { namespace inferenceserver {
 
 class InferenceRequest;
-class MetricModelReporter;
 
 //
 // Interface for backends that handle inference requests.
@@ -57,12 +56,6 @@ class InferenceBackend {
 
   // Get the configuration of model being served.
   const ModelConfig& Config() const { return config_; }
-
-  // Get the metric reporter for the model being served.
-  const std::shared_ptr<MetricModelReporter>& MetricReporter() const
-  {
-    return metric_reporter_;
-  }
 
 #ifdef TRTIS_ENABLE_STATS
   // Get the stats collector for the model being served.
@@ -159,9 +152,6 @@ class InferenceBackend {
 
   // Version of the model that this backend represents.
   int64_t version_;
-
-  // The metric reporter for the model that this backend represents.
-  std::shared_ptr<MetricModelReporter> metric_reporter_;
 
 #ifdef TRTIS_ENABLE_STATS
   // The stats collector for the model that this backend represents.
